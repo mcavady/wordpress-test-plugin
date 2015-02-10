@@ -6,7 +6,7 @@
 * Version: 1.0.0
 * Author: James Mcavady
 * Author URI: http://responsivedeveloper.com
-* Text Domain: 
+* Text Domain:
 * Domain Path:
 * Network: true
 * License: not made yet do what you wish ;)
@@ -16,9 +16,9 @@
 
 global $wp_version;
 $exit_msg='';
-if (version_compare($wp_version,"4.1","<"))
+if (version_compare($wp_version,"4.3","<"))
 {
-	exit ($exit_msg);
+	exit ($exit_msg . "Please use wordpress version 4.3 and up");
 }
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please');//secure that shizzle
