@@ -1,6 +1,6 @@
 <?php
 /**
-* Plugin Name: Post data Plugin
+* Plugin Name: Product Data Plugin
 * Plugin URI: http://responsivedeveloper.com
 * Description: Post Data plugin - show all posts and data about them
 * Version: 1.0.0
@@ -18,7 +18,7 @@ global $wp_version;
 $exit_msg='';
 if (version_compare($wp_version,"4.1","<"))
 {
-	exit ($exit_msg . "Please use wordpress version 4.3 and up");
+	exit ($exit_msg . "Please use wordpress version 4.1 and up");
 }
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please');//secure that shizzle
@@ -73,7 +73,7 @@ function myPlugin_control_options() {
 			if(isset($_POST['search_draft_posts']))
 			{
 				//mysqlquery
-				$mytestdrafts = $wpdb->get_results ("SELECT ID, post_title, post_date, post_status, post_content, post_author, comment_status,guid FROM $wpdb->posts WHERE post_type = 'product'");
+				$mytestdrafts = $wpdb->get_results ("SELECT ID, post_title, post_date, post_status, post_content, post_author, comment_status, guid FROM $wpdb->posts WHERE post_type = 'product'");
 				//store the data from this qeury in the wp option so that the results display if this query has been run before
 				update_option('mytestdrafts_draft_posts', $mytestdrafts);
 			}
@@ -93,7 +93,7 @@ function myPlugin_control_options() {
 				echo"<td>".$mytestdraft->post_content."</td>";
 				echo"<td>".$mytestdraft->comment_status."</td>";
 				echo"<td>".$mytestdraft->post_author."</td>";
-				echo"<td><a href='" .$mytestdraft->guid. "'>" .$mytestdraft->guid."</a></td>";
+				echo"<td><a href='" .$mytestdraft->guid. "'>Go to Product</a></td>";
 			?>
 			</tr>
 			<?php
