@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please');//secure that shizzle
 
 //add the option to the admin menu under the settings heading
 function display_text() {
-	add_options_page('myPlugin', 'Simple Product Data', 'manage_options', '__FILE__', 'myPlugin_control_options');
+	add_menu_page('myPlugin', 'Simple Product Data', 'manage_options', '__FILE__', 'myPlugin_control_options');
 }
 add_action( 'admin_menu', 'display_text' );
 
@@ -36,8 +36,9 @@ function myPlugin_control_options() {
 ?>
 	<div class="wrap">
 		<h4>Find All Products</h4>
+		<p>Click the<strong>refresh product data</strong>button in blue, the simple product data for all products will be shown in the list below</p>
 		<br/>
-		<form action="" method="POST" >
+		<form action="" method="POST">
 			<input type="submit" name="search_draft_posts" value="Resfresh Product Data" class="button-primary" />
 		</form>
 		</br>
@@ -48,7 +49,6 @@ function myPlugin_control_options() {
 					<th> Product ID </th>
 					<th> Product Date </th>
 					<th> Product Status </th>
-					<th> Product Content </th>
 					<th> Product Comment Status</th>
 					<th> Product Author </th>
 					<th> Product Link </th>
@@ -60,7 +60,6 @@ function myPlugin_control_options() {
 					<th> Product ID </th>
 					<th> Product Date </th>
 					<th> Product Status </th>
-					<th> Product Content </th>
 					<th> Product Comment Status</th>
 					<th> Product Author </th>
 					<th> Product Link </th>
@@ -73,7 +72,7 @@ function myPlugin_control_options() {
 			if(isset($_POST['search_draft_posts']))
 			{
 				//mysqlquery
-				$mytestdrafts = $wpdb->get_results ("SELECT ID, post_title, post_date, post_status, post_content, post_author, comment_status, guid FROM $wpdb->posts WHERE post_type = 'product'");
+				$mytestdrafts = $wpdb->get_results ("SELECT ID, post_title, post_date, post_status, post_author, comment_status, guid FROM $wpdb->posts WHERE post_type = 'product'");
 				//store the data from this qeury in the wp option so that the results display if this query has been run before
 				update_option('mytestdrafts_draft_posts', $mytestdrafts);
 			}
@@ -89,8 +88,7 @@ function myPlugin_control_options() {
 				echo"<td>".$mytestdraft->post_title."</td>";
 				echo"<td>".$mytestdraft->ID."</td>";
 				echo"<td>".$mytestdraft->post_date."</td>";
-				echo"<td>".$mytestdraft->post_status."</td>";
-				echo"<td>".$mytestdraft->post_content."</td>";
+				echo"<td>".$mytestdraft->post_status."ed</td>";
 				echo"<td>".$mytestdraft->comment_status."</td>";
 				echo"<td>".$mytestdraft->post_author."</td>";
 				echo"<td><a href='" .$mytestdraft->guid. "'>Go to Product</a></td>";
@@ -99,7 +97,6 @@ function myPlugin_control_options() {
 			<?php
 			}
 			?>
-
 		</tbody>
 	<div>
 <?php
