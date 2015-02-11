@@ -1,10 +1,10 @@
 <?php
 /**
-* Plugin Name: myPlugin
+* Plugin Name: Post data Plugin
 * Plugin URI: http://responsivedeveloper.com
-* Description: Testing out plugin headers
+* Description: Post Data plugin - show all posts and data about them
 * Version: 1.0.0
-* Author: James Mcavady
+* Author: James Mcavady - Responsive Developer
 * Author URI: http://responsivedeveloper.com
 * Text Domain:
 * Domain Path:
@@ -16,19 +16,18 @@
 
 global $wp_version;
 $exit_msg='';
-if (version_compare($wp_version,"4.3","<"))
+if (version_compare($wp_version,"4.1","<"))
 {
 	exit ($exit_msg . "Please use wordpress version 4.3 and up");
 }
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please');//secure that shizzle
 
-
 /* === Plugin Start === */
 
 //add the option to the admin menu under the settings heading
 function display_text() {
-	add_options_page('myPlugin', 'Draft Post Data', 'manage_options', '__FILE__', 'myPlugin_control_options');
+	add_options_page('myPlugin', 'Simple Product Data', 'manage_options', '__FILE__', 'myPlugin_control_options');
 }
 add_action( 'admin_menu', 'display_text' );
 
@@ -36,37 +35,35 @@ add_action( 'admin_menu', 'display_text' );
 function myPlugin_control_options() {
 ?>
 	<div class="wrap">
-		<h4>Find all draft posts</h4>
+		<h4>Find All Products</h4>
 		<br/>
 		<form action="" method="POST" >
-			<input type="submit" name="search_draft_posts" value="Find More Drafts" class="button-primary" />
+			<input type="submit" name="search_draft_posts" value="Resfresh Product Data" class="button-primary" />
 		</form>
 		</br>
 		<table class="widefat">
 			<thead>
 				<tr>
-					<th> Post Title </th>
-					<th> Post ID </th>
-					<th> Post Date </th>
-					<th> Post Status </th>
-					<th> Post Type </th>
-					<th> Post Content </th>
-					<th> Post Excerpt </th>
-					<th> Post Comment Status</th>
-					<th> Post Author </th>
+					<th> Product Title </th>
+					<th> Product ID </th>
+					<th> Product Date </th>
+					<th> Product Status </th>
+					<th> Product Content </th>
+					<th> Product Comment Status</th>
+					<th> Product Author </th>
+					<th> Product Link </th>
 				<tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<th> Post Title </th>
-					<th> Post ID </th>
-					<th> Post Date </th>
-					<th> Post Status </th>
-					<th> Post Type </th>
-					<th> Post Content </th>
-					<th> Post Excerpt </th>
-					<th> Post Comment Status</th>
-					<th> Post Author </th>
+					<th> Product Title </th>
+					<th> Product ID </th>
+					<th> Product Date </th>
+					<th> Product Status </th>
+					<th> Product Content </th>
+					<th> Product Comment Status</th>
+					<th> Product Author </th>
+					<th> Product Link </th>
 				<tr>
 			</tfoot>
 		<tbody>
@@ -76,7 +73,7 @@ function myPlugin_control_options() {
 			if(isset($_POST['search_draft_posts']))
 			{
 				//mysqlquery
-				$mytestdrafts = $wpdb->get_results ("SELECT ID, post_title, post_date, post_status, post_type, post_content, post_excerpt, post_author, comment_status FROM $wpdb->posts WHERE post_status = 'draft' ");
+				$mytestdrafts = $wpdb->get_results ("SELECT ID, post_title, post_date, post_status, post_content, post_author, comment_status,guid FROM $wpdb->posts WHERE post_type = 'product'");
 				//store the data from this qeury in the wp option so that the results display if this query has been run before
 				update_option('mytestdrafts_draft_posts', $mytestdrafts);
 			}
@@ -93,11 +90,10 @@ function myPlugin_control_options() {
 				echo"<td>".$mytestdraft->ID."</td>";
 				echo"<td>".$mytestdraft->post_date."</td>";
 				echo"<td>".$mytestdraft->post_status."</td>";
-				echo"<td>".$mytestdraft->post_type."</td>";
 				echo"<td>".$mytestdraft->post_content."</td>";
-				echo"<td>".$mytestdraft->post_excerpt."</td>";
 				echo"<td>".$mytestdraft->comment_status."</td>";
 				echo"<td>".$mytestdraft->post_author."</td>";
+				echo"<td><a href='" .$mytestdraft->guid. "'>" .$mytestdraft->guid."</a></td>";
 			?>
 			</tr>
 			<?php
