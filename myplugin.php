@@ -10,6 +10,8 @@
 * Domain Path:
 * Network: true
 * License: not made yet do what you wish ;)
+*
+*
 */
 
 /* Version Check */
@@ -39,7 +41,7 @@ function myPlugin_control_options() {
 		<p>Click the<strong>refresh product data</strong>button in blue, the simple product data for all products will be shown in the list below</p>
 		<br/>
 		<form action="" method="POST">
-			<input type="submit" name="search_draft_posts" value="Resfresh Product Data" class="button-primary" />
+			<input type="submit" name="search_draft_posts" value="Refresh Product Data" class="button-primary" />
 		</form>
 		</br>
 		<table class="widefat">
