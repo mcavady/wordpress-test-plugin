@@ -2,7 +2,7 @@
 /**
 * Plugin Name: Product Data Plugin
 * Plugin URI: http://responsivedeveloper.com
-* Description: Post Data plugin - show all posts and data about them
+* Description: Product Data plugin - show all products and simple data about them
 * Version: 1.0.0
 * Author: James Mcavady - Responsive Developer
 * Author URI: http://responsivedeveloper.com
@@ -41,7 +41,7 @@ function myPlugin_control_options() {
 		<p>Click the<strong>refresh product data</strong>button in blue, the simple product data for all products will be shown in the list below</p>
 		<br/>
 		<form action="" method="POST">
-			<input type="submit" name="search_draft_posts" value="Refresh Product Data" class="button-primary" />
+			<input type="submit" name="search_product_details" value="Refresh Product Data" class="button-primary" />
 		</form>
 		</br>
 		<table class="widefat">
@@ -71,7 +71,7 @@ function myPlugin_control_options() {
 		<?php
 			global $wpdb; //wp DB var as global
 			$mytestdrafts = array(); //array for storing the draft data
-			if(isset($_POST['search_draft_posts']))
+			if(isset($_POST['search_product_details']))
 			{
 				//mysqlquery
 				$mytestdrafts = $wpdb->get_results ("SELECT ID, post_title, post_date, post_status, post_author, comment_status, guid FROM $wpdb->posts WHERE post_type = 'product'");
