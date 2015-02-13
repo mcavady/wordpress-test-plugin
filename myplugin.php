@@ -10,22 +10,32 @@
 * Domain Path:
 * Network: true
 * License: not made yet do what you wish ;)
-*
-*
 */
 
-/* Version Check */
+/* Wordpress Version Check */
 
 global $wp_version;
 $exit_msg='';
-if (version_compare($wp_version,"4.1","<"))
+if (version_compare($wp_version,"4.1","<"))//check for the lowest version you want run this plugin with.
 {
-	exit ($exit_msg . "Please use wordpress version 4.1 and up");
+	exit ($exit_msg . "Please use wordpress version 4.1 and up");//give good feedback to the users
 }
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please');//secure that shizzle
 
-/* === Plugin Start === */
+
+/* Woo-commerce-check */
+
+/**
+ * Check if WooCommerce is active and only run if it is.
+ * Wrapping it this way will remove this plugins menu visibility from the menu when woocommerce is not active/running 
+ **/
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+
+
+/*============================*/
+/* ====== Plugin Start ====== */
+/*============================*/
 
 //add the option to the admin menu under the settings heading
 function display_text() {
@@ -53,6 +63,7 @@ function myPlugin_control_options() {
 					<th> Product Status </th>
 					<th> Product Comment Status</th>
 					<th> Product Author </th>
+					<th> Product Price </th>
 					<th> Product Link </th>
 				<tr>
 			</thead>
@@ -64,6 +75,7 @@ function myPlugin_control_options() {
 					<th> Product Status </th>
 					<th> Product Comment Status</th>
 					<th> Product Author </th>
+					<th> Product price </th>
 					<th> Product Link </th>
 				<tr>
 			</tfoot>
@@ -93,14 +105,23 @@ function myPlugin_control_options() {
 				echo"<td>".$mytestdraft->post_status."ed</td>";
 				echo"<td>".$mytestdraft->comment_status."</td>";
 				echo"<td>".$mytestdraft->post_author."</td>";
+				
+				
+				echo"<td>".$mytestdraft->regular_price."</td>";
+				
+				
 				echo"<td><a href='" .$mytestdraft->guid. "'>Go to Product</a></td>";
 			?>
+			
+			
 			</tr>
-			<?php
+			<?php 
 			}
 			?>
 		</tbody>
 	<div>
 <?php
 }
+
+}/* end woo-commerce-check*/
 ?>
