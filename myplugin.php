@@ -38,10 +38,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 /*============================*/
 
 //add the option to the admin menu under the settings heading
-function display_text() {
-	add_menu_page('myPlugin', 'Simple Product Data', 'manage_options', '__FILE__', 'myPlugin_control_options');
-}
+
 add_action( 'admin_menu', 'display_text' );
+function display_text() {
+	add_submenu_page('woocommerce', 'Simple Product Data','Simple Product Data', 'manage_options', '__FILE__', 'myPlugin_control_options');
+}
+
 
 //display the plugin page with the data and options you want
 function myPlugin_control_options() {
