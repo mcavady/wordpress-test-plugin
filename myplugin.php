@@ -14,6 +14,7 @@
 
 /* Wordpress Version Check */
 
+
 global $wp_version;
 $exit_msg='';
 if (version_compare($wp_version,"4.1","<"))//check for the lowest version you want run this plugin with.
@@ -22,6 +23,8 @@ if (version_compare($wp_version,"4.1","<"))//check for the lowest version you wa
 }
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please');//secure that shizzle
+
+
 
 
 /* Woo-commerce-check */
@@ -37,7 +40,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 /* ====== Plugin Start ====== */
 /*============================*/
 
-//add the option to the admin menu under the settings heading
+//add the option to the admin menu under the settings heading for woocommerce
 
 add_action( 'admin_menu', 'display_text' );
 function display_text() {
@@ -61,11 +64,10 @@ function myPlugin_control_options() {
 				<tr>
 					<th> Product Title </th>
 					<th> Product ID </th>
-					<th> Product Date </th>
+					<th> Product Date  / Time (published)</th>
 					<th> Product Status </th>
 					<th> Product Comment Status</th>
 					<th> Product Author </th>
-					<th> Product Price </th>
 					<th> Product Link </th>
 				<tr>
 			</thead>
@@ -73,11 +75,10 @@ function myPlugin_control_options() {
 				<tr>
 					<th> Product Title </th>
 					<th> Product ID </th>
-					<th> Product Date </th>
+					<th> Product Date / Time (published)</th>
 					<th> Product Status </th>
 					<th> Product Comment Status</th>
 					<th> Product Author </th>
-					<th> Product price </th>
 					<th> Product Link </th>
 				<tr>
 			</tfoot>
@@ -107,17 +108,10 @@ function myPlugin_control_options() {
 				echo"<td>".$mytestdraft->post_status."ed</td>";
 				echo"<td>".$mytestdraft->comment_status."</td>";
 				echo"<td>".$mytestdraft->post_author."</td>";
-				
-				
-				echo"<td>".$mytestdraft->regular_price."</td>";
-				
-				
 				echo"<td><a href='" .$mytestdraft->guid. "'>Go to Product</a></td>";
 			?>
-			
-			
 			</tr>
-			<?php 
+			<?php
 			}
 			?>
 		</tbody>
